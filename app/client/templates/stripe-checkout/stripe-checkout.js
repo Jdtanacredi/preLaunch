@@ -5,7 +5,7 @@ if (Meteor.isClient) {
       e.preventDefault();
 
       StripeCheckout.open({
-        key: 'testPublicKey',
+        key: Meteor.settings.private.Stripe.public,
         amount: 5000, // this is equivalent to $50
         name: 'Meteor Tutorial',
         description: 'On how to use Stripe ($50.00)',
@@ -20,11 +20,13 @@ if (Meteor.isClient) {
   });
 }
 
+
+
 if (Meteor.isServer) {
   Meteor.methods({
     'chargeCard': function(stripeToken) {
       check(stripeToken, String);
-      var Stripe = StripeAPI('testPrivateAPIKEY');
+      var Stripe = StripeAPI(Meteor.settings.private.Stripe.private);
 
       Stripe.charges.create({
         source: stripeToken,
