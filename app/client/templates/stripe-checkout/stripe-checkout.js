@@ -5,7 +5,7 @@ if (Meteor.isClient) {
       e.preventDefault();
 
       StripeCheckout.open({
-        key: Meteor.settings.private.Stripe.public,
+        key: Meteor.settings.public.Stripe.public,
         amount: 5000, // this is equivalent to $50
         name: 'Meteor Tutorial',
         description: 'On how to use Stripe ($50.00)',
