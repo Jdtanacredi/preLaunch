@@ -1,0 +1,12 @@
+{
+  "public": {
+  },
+
+  "sample": "value",
+  "private": {
+		"MailChimp": {
+			"apiKey": "<Your MailChimp API Key>",
+			"listId": "<ID of your default mailing list>"
+		}
+	}
+}
