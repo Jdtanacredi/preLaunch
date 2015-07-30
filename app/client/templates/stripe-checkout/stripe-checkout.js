@@ -1,8 +1,7 @@
-
-if (Meteor.isClient) {
   Template.stripeCheckoutButton.events({
     'click button': function(e) {
       e.preventDefault();
+      console.log("publicStripeKey: " + Meteor.settings.public.Stripe.public);
 
       StripeCheckout.open({
         key: Meteor.settings.public.Stripe.public,
@@ -13,28 +12,9 @@ if (Meteor.isClient) {
         token: function(res) {
           stripeToken = res.id;
           console.info(res);
+          // Meteor.call('testingMethod');
           Meteor.call('chargeCard', stripeToken);
         }
       });
     }
   });
-}
-
-
-
-if (Meteor.isServer) {
-  Meteor.methods({
-    'chargeCard': function(stripeToken) {
-      check(stripeToken, String);
-      var Stripe = StripeAPI(Meteor.settings.private.Stripe.private);
-
-      Stripe.charges.create({
-        source: stripeToken,
-        amount: 5000, // this is equivalent to $50
-        currency: 'usd'
-      }, function(err, charge) {
-        console.log(err, charge);
-      });
-    }
-  });
-}
