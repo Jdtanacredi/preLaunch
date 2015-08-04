@@ -17,7 +17,6 @@ function createImageLi(x) {
 	// $('.insta-image:lt('+x+')').wrapAll('<li class="insta-group"></li>');
 		imageArray.slice(0,x).wrapAll('<li class="insta-group"></li>');
 }
-
 var listOption = 0;
 for (i = 0; i <= imageArray.length; i++) {
 	console.log('option: '+ listOption + 'i: ' + i );
@@ -33,3 +32,45 @@ for (i = 0; i <= imageArray.length; i++) {
 		i + 10;
 	}
 }
+
+
+// ATTEMPT TURNING ABOVE CODE INTO MODULE
+/**
+ * @name InstagramSlideshow
+ * @jdtanacredi 
+ *
+ * Basic usage:
+ * InstagramSlideshow();
+ *
+ * additionally you can use methods like InstagramSlideshow.methodName();
+ */
+
+var InstagramSlideshow = (function () {
+	var imageArray = $('.insta-image'),
+ 			listOption = 0;
+
+ 	var	createImageLi = function(position) {
+	 			imageArray.slice(0,position).wrapAll('<li class="insta-group"></li>');		
+			},
+			removeFromArray = function(count) {
+				imageArray.splice(0,count);
+				i + count;
+			};
+
+	return {
+	 	parse: function() {
+	 		for (i = 0; i <= imageArray.length; i++) {
+			console.log('option: '+ listOption + 'i: ' + i );
+				if (listOption == 0) {
+					createImageLi(7);
+					listOption = 1;
+					removeFromArray(7);
+				} else {
+					createImageLi(10);
+					listOption = 0;
+					removeFromArray(10);
+				}
+			}
+	 	}
+ 	}
+})();
