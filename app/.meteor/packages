@@ -9,3 +9,4 @@ iron:router
 miro:mailchimp
 mrgalaxy:stripe
 etjana:instafeed
+sjors:meteor-masonry

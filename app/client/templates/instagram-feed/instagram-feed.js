@@ -3,14 +3,14 @@ var feed = new Instafeed({
     tagName: 'dci',
     limit: 34,
     clientId: '9c0617e8e92248e3b7e1c147a2a48558',
-    template: '<a class="insta-image" href="{{link}}"><img class="insta-img"src="{{image}}" /></a>',
+    template: '<div class="grid-item insta-image"><a class="" href="{{link}}"><img width="200" height="200" class="insta-img"src="{{image}}" /></a></div>',
     after: function() {
 //  Put all image elements in an array. 
 			var imageArray = $('.insta-image');
 // Pull out images in groups of 10 and 7 until all image elements are used.
 			function createImageLi(x) {
 			// $('.insta-image:lt('+x+')').wrapAll('<li class="insta-group"></li>');
-				imageArray.slice(0,x).wrapAll('<li class="insta-group"></li>');
+				imageArray.slice(0,x).wrapAll('<li class="insta-group grid"></li>');
 			}
 			var listOption = 0;
 			for (i = 0; i <= imageArray.length; i++) {
@@ -27,6 +27,11 @@ var feed = new Instafeed({
 					i + 10;
 				}
 			}
+			$('.grid').masonry({
+  		// options
+  		itemSelector: '.grid-item',
+  		columnWidth: 200
+			});
     }
 });
 feed.run();
