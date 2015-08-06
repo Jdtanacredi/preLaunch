@@ -3,14 +3,28 @@ var feed = new Instafeed({
     tagName: 'dci',
     limit: 34,
     clientId: '9c0617e8e92248e3b7e1c147a2a48558',
-    template: '<div class="grid-item insta-image"><a class="" href="{{link}}"><img width="200" height="200" class="insta-img"src="{{image}}" /></a></div>',
+    template: '<div class="grid-item insta-image"><a class="" href="{{link}}"><img width="200" height="200" class="insta-img"src="{{image}}" /></a><div class="insta-content">{{caption}}</div></div>',
     after: function() {
 //  Put all image elements in an array. 
 			var imageArray = $('.insta-image');
 // Pull out images in groups of 10 and 7 until all image elements are used.
 			function createImageLi(x) {
 			// $('.insta-image:lt('+x+')').wrapAll('<li class="insta-group"></li>');
-				imageArray.slice(0,x).wrapAll('<li class="insta-group grid"></li>');
+				var listItem = imageArray.slice(0,x).wrapAll('<li class="insta-group grid"></li>');
+				if (x == 7) {
+					var number2 = imageArray.eq(2);
+					var number5 = imageArray.eq(5);
+					var number6 = imageArray.eq(6);
+					number2.addClass('grid-item--width2');
+					number5.addClass('grid-item--width2');
+					number6.addClass('grid-item--width2');
+					// for (var i = 0; i < listItem.length; i++) {
+					// 	if (i % 2 == 0) {
+					// 	}
+					// }
+				} else {
+					
+				}
 			}
 			var listOption = 0;
 			for (i = 0; i <= imageArray.length; i++) {
@@ -28,10 +42,11 @@ var feed = new Instafeed({
 				}
 			}
 			$('.grid').masonry({
-  		// options
-  		itemSelector: '.grid-item',
-  		columnWidth: 200
-			});
+   			columnWidth: 100,
+   			itemSelector: '.grid-item'
+  		}).imagesLoaded(function() {
+   			$('.grid').masonry('reload');
+  		});
     }
 });
 feed.run();
